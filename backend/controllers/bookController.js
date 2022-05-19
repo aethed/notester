@@ -6,7 +6,7 @@ const Book = require('../models/bookModel')
 // @route   GET /api/books 
 // @access  Private
 const getBooks = asyncHandler(async (req, res) => {
-    const books = await Book.find()
+    const books = await Book.find({ user: req.user.id })
 
     res.status(200).json(books)
 })
@@ -21,13 +21,14 @@ const createBook = asyncHandler(async (req, res) => {
     }
 
     const book = await Book.create({
-        bookTitle: req.body.bookTitle
+        bookTitle: req.body.bookTitle,
+        user: req.user.id,
     })
 
     res.status(200).json(book)
 })
 
-// @desc    Update goal
+// @desc    Update book
 // @route   PUT /api/books/:id
 // @access  Private
 const updateBook = asyncHandler(async (req, res) => {
@@ -38,12 +39,27 @@ const updateBook = asyncHandler(async (req, res) => {
         throw new Error('Book not found')
     }
 
+    const user = await User.findById(req.user.id)
+
+        // Check for user
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user matches the book user
+    if (book.user.toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+        
+
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
     res.json(updatedBook)
 })
 
-// @desc    Delete goals
+// @desc    Delete books
 // @route   DELETE /api/books/:id
 // @access  Private
 const deleteBook = asyncHandler(async (req, res) => {
@@ -52,6 +68,18 @@ const deleteBook = asyncHandler(async (req, res) => {
     if (!book) {
         res.status(400)
         throw new Error('Book not found')
+    }
+
+    // Check for user
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user matches the book user
+    if (book.user.toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     await Book.findByIdAndDelete(req.params.id)

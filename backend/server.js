@@ -7,12 +7,15 @@ const port = process.env.PORT || 5000 //port for server to run on
 
 connectDB()
 
+
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/books', require('./routes/bookRoutes'))
+app.use('/api/users', require('./routes/userRoutes'))
+
 
 app.use(errorHandler)
 

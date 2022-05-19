@@ -7,7 +7,9 @@ const {
     deleteBook 
 } = require('../controllers/bookController')
 
-router.route('/').get(getBooks).post(createBook)
-router.route('/:id').delete(deleteBook).put(updateBook)
+const { protect } = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, getBooks).post(protect, createBook)
+router.route('/:id').delete(protect, deleteBook).put(protect, updateBook)
 
 module.exports = router
