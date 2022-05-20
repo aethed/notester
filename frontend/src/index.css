@@ -97,21 +97,21 @@ h3 {
   color: #ffffff;
 }
 
-.books {
+.notes {
   color: #c3c3c3;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-.book {
+.note {
   background-color: #1b1b1f;
   margin: 10px 0;
   padding: 20px 0 10px;
   position: relative;
 }
 
-.book .close {
+.note .close {
   color: #e03737;
   position: absolute;
   top: 10px;

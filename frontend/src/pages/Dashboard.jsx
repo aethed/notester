@@ -3,10 +3,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import BookForm from '../components/BookForm'
-import BookItem from '../components/BookItem'
+import NoteForm from '../components/NoteForm'
+import NoteItem from '../components/NoteItem'
 import Spinner from '../components/Spinner'
-import { getBooks, reset } from '../features/books/bookSlice'
+import { getNotes, reset } from '../features/notes/noteSlice'
 
 
 function Dashboard() {
@@ -14,8 +14,8 @@ function Dashboard() {
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { books: books, isLoading, isError, message } = useSelector(
-    (state) => state.books
+  const { notes: notes, isLoading, isError, message } = useSelector(
+    (state) => state.notes
   )
 
   useEffect(() => {
@@ -45,13 +45,13 @@ function Dashboard() {
         <p2>Notes Dashboard</p2>
       </section>
 
-      <BookForm />
+      <NoteForm />
 
       <section className='content'>
         {books.length > 0 ? (
           <div className='books'>
             {books.map((book) => (
-              <BookItem key={book._id} book={book} />
+              <NoteItem key={book._id} book={book} />
             ))}
           </div>
         ) : (

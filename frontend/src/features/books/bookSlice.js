@@ -1,23 +1,23 @@
 //star
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import bookService from './bookService'
+import noteService from './noteService'
 
 const initialState = {
-  books: [],
+  notes: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: '',
 }
 
-// Create new book
-export const createBook = createAsyncThunk(
-  'books/create',
-  async (bookData, thunkAPI) => {
+// Create new note
+export const createNote = createAsyncThunk(
+  'notes/create',
+  async (noteData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
-      return await bookService.createBook(bookData, token)
+      return await noteService.createNote(noteData, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -30,13 +30,13 @@ export const createBook = createAsyncThunk(
   }
 )
 
-// Get user books
-export const getBooks = createAsyncThunk(
-  'books/getAll',
+// Get user notes
+export const getNotes = createAsyncThunk(
+  'notes/getAll',
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
-      return await bookService.getBooks(token)
+      return await noteService.getNotes(token)
     } catch (error) {
       const message =
         (error.response &&
@@ -49,13 +49,13 @@ export const getBooks = createAsyncThunk(
   }
 )
 
-// Delete user book
-export const deleteBook = createAsyncThunk(
-  'books/delete',
+// Delete user note
+export const deleteNote = createAsyncThunk(
+  'notes/delete',
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
-      return await bookService.deleteBook(id, token)
+      return await noteService.deleteNote(id, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -68,51 +68,51 @@ export const deleteBook = createAsyncThunk(
   }
 )
 
-export const bookSlice = createSlice({
-  name: 'book',
+export const noteSlice = createSlice({
+  name: 'note',
   initialState,
   reducers: {
     reset: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createBook.pending, (state) => {
+      .addCase(createNote.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(createBook.fulfilled, (state, action) => {
+      .addCase(createNote.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.books.push(action.payload)
+        state.notes.push(action.payload)
       })
-      .addCase(createBook.rejected, (state, action) => {
+      .addCase(createNote.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
       })
-      .addCase(getBooks.pending, (state) => {
+      .addCase(getNotes.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(getBooks.fulfilled, (state, action) => {
+      .addCase(getNotes.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.books = action.payload
+        state.notes = action.payload
       })
-      .addCase(getBooks.rejected, (state, action) => {
+      .addCase(getNotes.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
       })
-      .addCase(deleteBook.pending, (state) => {
+      .addCase(deleteNote.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(deleteBook.fulfilled, (state, action) => {
+      .addCase(deleteNote.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.books = state.books.filter(
+        state.notes = state.notes.filter(
           (book) => book._id !== action.payload.id
         )
       })
-      .addCase(deleteBook.rejected, (state, action) => {
+      .addCase(deleteNote.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
@@ -120,5 +120,5 @@ export const bookSlice = createSlice({
   },
 })
 
-export const { reset } = bookSlice.actions
-export default bookSlice.reducer
+export const { reset } = noteSlice.actions
+export default noteSlice.reducer

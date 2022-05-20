@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const bookSchema = mongoose.Schema({
+const noteSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true, 
@@ -19,4 +19,4 @@ const bookSchema = mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Book', bookSchema)
+module.exports = mongoose.model('Note', noteSchema)
