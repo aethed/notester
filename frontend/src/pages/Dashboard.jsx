@@ -1,5 +1,3 @@
-//star
-
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,13 +6,12 @@ import NoteItem from '../components/NoteItem'
 import Spinner from '../components/Spinner'
 import { getNotes, reset } from '../features/notes/noteSlice'
 
-
 function Dashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const { notes: notes, isLoading, isError, message } = useSelector(
+  const { notes, isLoading, isError, message } = useSelector(
     (state) => state.notes
   )
 
@@ -41,8 +38,8 @@ function Dashboard() {
   return (
     <>
       <section className='heading'>
-        <h1>Welcome back, {user && user.name}! 👋 </h1>
-        <p2>Notes Dashboard</p2>
+        <h1>Welcome {user && user.name}</h1>
+        <p>Notes Dashboard</p>
       </section>
 
       <NoteForm />
@@ -55,11 +52,11 @@ function Dashboard() {
             ))}
           </div>
         ) : (
-          <h3>You have not made any notes</h3>
+          <h3>You have not set any notes</h3>
         )}
       </section>
     </>
   )
-}
+} 
 
 export default Dashboard
