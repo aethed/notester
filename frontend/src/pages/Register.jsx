@@ -1,3 +1,5 @@
+// star
+
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -68,7 +70,7 @@ function Register() {
         <h1>
           <FaUser /> Register
         </h1>
-        <p>Welcome to Bookish! Please create an account</p>
+        <p2>Welcome to Notester! Please create an account</p2>
       </section>
 
       <section className='form'>

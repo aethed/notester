@@ -6,9 +6,14 @@ const bookSchema = mongoose.Schema({
         required: true, 
         ref: 'User'
     },
-    bookTitle: {
+    text: {
         type: String,
         required: [true, 'Please add a text value']
+    },
+
+    description: {
+        type: String,
+        required: [true, 'Please add a text value for your descriptoin']
     }
 }, {
     timestamps: true

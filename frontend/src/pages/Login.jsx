@@ -1,3 +1,5 @@
+// star
+
 import { useState, useEffect } from 'react'
 import { FaSignInAlt } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
@@ -61,7 +63,7 @@ function Login() {
         <h1>
           <FaSignInAlt /> Login
         </h1>
-        <p>Login and start setting goals</p>
+        <p2>Login to access your notes</p2>
       </section>
 
       <section className='form'>
