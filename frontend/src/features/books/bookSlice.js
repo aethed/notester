@@ -109,7 +109,7 @@ export const noteSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.notes = state.notes.filter(
-          (book) => book._id !== action.payload.id
+          (note) => note._id !== action.payload.id
         )
       })
       .addCase(deleteNote.rejected, (state, action) => {

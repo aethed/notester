@@ -27,7 +27,7 @@ function Dashboard() {
       navigate('/login')
     }
 
-    dispatch(getBooks())
+    dispatch(getNotes())
 
     return () => {
       dispatch(reset())
@@ -48,10 +48,10 @@ function Dashboard() {
       <NoteForm />
 
       <section className='content'>
-        {books.length > 0 ? (
-          <div className='books'>
-            {books.map((book) => (
-              <NoteItem key={book._id} book={book} />
+        {notes.length > 0 ? (
+          <div className='notes'>
+            {notes.map((note) => (
+              <NoteItem key={note._id} note={note} />
             ))}
           </div>
         ) : (
